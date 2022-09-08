@@ -1,0 +1,48 @@
+<div *ngIf="currentPoke" class="globalDiv" [@fadeInOut]>
+
+  <h2>{{currentPoke?.frName}}</h2>
+  <div class="typesDiv">
+    <span class="typeSpan" *ngFor="let type of currentPoke?.frTypes">
+      {{type}}
+    </span>
+  </div>
+
+  <div *ngIf="!chartShow" class="spritesDiv">
+    <img [src]="spriteShown" width="200">
+    <div class="spritesBtns">
+      <button pButton type="button" (click)="selectSprite(0)" style="width: 25px; height: 25px;"
+        class="p-element p-button-rounded p-button-icon-only p-button-secondary">1</button>
+      &nbsp;
+      <button pButton type="button" (click)="selectSprite(1)" style="width: 25px; height: 25px;"
+        class="p-element p-button-rounded p-button-icon-only p-button-secondary">2</button>
+      &nbsp;
+      <button pButton type="button" (click)="selectSprite(2)" style="width: 25px; height: 25px;"
+        class="p-element p-button-rounded p-button-icon-only p-button-secondary">3</button>
+    </div>
+    <div>
+      <span>Taille : {{(currentPoke.height / 10)}} m</span>
+      &nbsp;
+      <span>Poids : {{currentPoke.weight / 10}} kg</span>
+    </div>
+    <p class="pDescrip">"{{currentPoke?.frDescription}}"</p>
+  </div>
+
+  <div *ngIf="chartShow" class="spritesDiv">
+    <img [src]="spriteShown" width="100">
+    <highcharts-chart [Highcharts]="Highcharts" [options]="hgOptions" [(update)]="hgUpdateFlag"
+      style="width: 100%; height: 275px; display: block;">
+    </highcharts-chart>
+    <p>
+      <b>Total stats : {{currentPoke.totalStats}}</b>
+    </p>
+  </div>
+
+  <div class="switchPropsDiv">
+    <button pButton type="button" (click)="toggleChartShow()" icon="pi pi-arrow-left" style="width: 35px; height: 35px;"
+      class="p-element p-button-rounded p-button-icon-only" [disabled]="!chartShow"></button>
+    &nbsp;
+    <button pButton type="button" (click)="toggleChartShow()" icon="pi pi-arrow-right" style="width: 35px; height: 35px;"
+      class="p-element p-button-rounded p-button-icon-only" [disabled]="chartShow"></button>
+  </div>
+
+</div>

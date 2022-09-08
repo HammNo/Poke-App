@@ -1,0 +1,27 @@
+<div>
+
+</div>
+<div class="pokeDex" [@fadeInOut]>
+  <div class="pokeListGlob">
+    <div class="prevNextDiv">
+      <button pButton type="button" icon="pi pi-arrow-left" (click)="moveList(false)" [disabled]="offset == 0"></button>
+      &nbsp;
+      <button pButton type="button" icon="pi pi-arrow-right" (click)="moveList(true)"></button>
+    </div>
+    <div class="pokeList">
+      <div class="pokeCard" *ngFor="let poke of pokeList" [@fadeInOut] (click)="toggleShowPoke(true, poke)">
+        <div class="idDot"><span>{{poke.id}}</span></div>
+        <p>{{poke.frName}}</p>
+        <img [src]="poke.spriteFD" size="50">
+      </div>
+    </div>
+  </div>
+  <div class="pokeProp" *ngIf="displayPoke">
+    <div class="btnCloseDiv">
+      <button pButton type="button" icon="pi pi-times" class="p-button-danger btn-close"
+        (click)="toggleShowPoke(false)"></button>
+    </div>
+    <app-poke-view [pokeShort]="pokeToSend" class="pokeSpecs"></app-poke-view>
+    <router-outlet></router-outlet>
+  </div>
+</div>
